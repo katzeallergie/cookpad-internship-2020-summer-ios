@@ -12,6 +12,7 @@ class RecipeEditorInteractor: RecipeEditorInteractorProtocol {
     
     func createRecipe(title: String?, steps: [String?], image: UIImage?, completion: @escaping ((Result<Void, Error>) -> Void)) {
         
+        print("interactor")
         guard let title = title else {
             return
         }
@@ -25,13 +26,10 @@ class RecipeEditorInteractor: RecipeEditorInteractorProtocol {
             return
         }
         
-        
-        
         imageDataStore.createImage(imageData: imageData, completion: { [weak self] result in
             switch result {
             case let .success(imagePath):
                 self?.recipeDataStore.createRecipe(title: title, steps: steps, imagePath: imagePath.path) { result in
-                    // まだチェックしていない
                     switch result {
                     case .success:
                         completion(.success(()))

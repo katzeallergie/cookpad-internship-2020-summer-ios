@@ -175,6 +175,7 @@ extension RecipeEditorViewController: UIImagePickerControllerDelegate, UINavigat
         recipeImageView.contentMode = .scaleAspectFill
         recipeImageView.image = image
         postImage = image
+        print("postImage")
     }
 }
 

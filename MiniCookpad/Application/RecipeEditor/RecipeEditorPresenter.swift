@@ -13,7 +13,7 @@ class RecipeEditorPresenter: RecipeEditorPresenterProtocol {
     }
     
     func createRecipe(title: String?, steps: [String?], image: UIImage?) {
-        self.interactor.createRecipe(title: title, steps: steps, image: image) { [weak self] result in
+        interactor.createRecipe(title: title, steps: steps, image: image) { [weak self] result in
             switch result {
             case .success:
                 self?.view.showComplete()
@@ -25,7 +25,7 @@ class RecipeEditorPresenter: RecipeEditorPresenterProtocol {
     }
     
     func close() {
-        self.wireframe.close()
+        wireframe.close()
     }
     
 }
