@@ -2,11 +2,16 @@ import Foundation
 import UIKit
 import Photos
 
-class RecipeEditorViewController: UIViewController {
+class RecipeEditorViewController: UIViewController, RecipeEditorViewProtocol {
     private let recipeImageView = UIImageView()
     private let titleFieldView = UITextField()
     private let stepsView = StepsView()
     private var postImage: UIImage?
+    private var presenter: RecipeEditorPresenterProtocol!
+    
+    func inject(presenter: RecipeEditorPresenterProtocol) {
+        self.presenter = presenter
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -82,10 +87,11 @@ class RecipeEditorViewController: UIViewController {
     }
 
     @objc private func tapPost() {
-//        let title = titleFieldView.text
-//        let steps = stepsView.getSteps()
-//        let image = postImage
+        let title = titleFieldView.text
+        let steps = stepsView.getSteps()
+        let image = postImage
         // TODO: レシピ作成
+        presenter.createRecipe(title: title, steps: steps, image: image)
     }
 
     @objc private func tapClose() {

@@ -35,6 +35,13 @@
 		324435F024E4D52600BD68BC /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 324435EF24E4D52600BD68BC /* SignUpViewController.swift */; };
 		324435F924EE502E00BD68BC /* FirestoreRecipe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 324435F824EE502E00BD68BC /* FirestoreRecipe.swift */; };
 		4553F47D24F387880035EF63 /* RecipeListPresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4553F47C24F387880035EF63 /* RecipeListPresenterTests.swift */; };
+		4553F47F24F39C690035EF63 /* ImageDataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4553F47E24F39C690035EF63 /* ImageDataStore.swift */; };
+		4553F48124F39CC80035EF63 /* ImagePath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4553F48024F39CC80035EF63 /* ImagePath.swift */; };
+		4553F48324F3A1540035EF63 /* RecipeEditorContract.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4553F48224F3A1540035EF63 /* RecipeEditorContract.swift */; };
+		4553F48524F3A2340035EF63 /* RecipeEditorPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4553F48424F3A2340035EF63 /* RecipeEditorPresenter.swift */; };
+		4553F48724F3A2610035EF63 /* RecipeEditorInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4553F48624F3A2610035EF63 /* RecipeEditorInteractor.swift */; };
+		4553F48924F3A2720035EF63 /* RecipeEditorWireframe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4553F48824F3A2720035EF63 /* RecipeEditorWireframe.swift */; };
+		4553F48B24F3A2FD0035EF63 /* RecipeEditorViewBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4553F48A24F3A2FD0035EF63 /* RecipeEditorViewBuilder.swift */; };
 		A665071A5C03DD076A859C89 /* Pods_MiniCookpadTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B8D6198D26C4CA301B60B869 /* Pods_MiniCookpadTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -80,6 +87,13 @@
 		324435EF24E4D52600BD68BC /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		324435F824EE502E00BD68BC /* FirestoreRecipe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreRecipe.swift; sourceTree = "<group>"; };
 		4553F47C24F387880035EF63 /* RecipeListPresenterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeListPresenterTests.swift; sourceTree = "<group>"; };
+		4553F47E24F39C690035EF63 /* ImageDataStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageDataStore.swift; sourceTree = "<group>"; };
+		4553F48024F39CC80035EF63 /* ImagePath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePath.swift; sourceTree = "<group>"; };
+		4553F48224F3A1540035EF63 /* RecipeEditorContract.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeEditorContract.swift; sourceTree = "<group>"; };
+		4553F48424F3A2340035EF63 /* RecipeEditorPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeEditorPresenter.swift; sourceTree = "<group>"; };
+		4553F48624F3A2610035EF63 /* RecipeEditorInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeEditorInteractor.swift; sourceTree = "<group>"; };
+		4553F48824F3A2720035EF63 /* RecipeEditorWireframe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeEditorWireframe.swift; sourceTree = "<group>"; };
+		4553F48A24F3A2FD0035EF63 /* RecipeEditorViewBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeEditorViewBuilder.swift; sourceTree = "<group>"; };
 		55B51621DCFBCDD7A5895BA2 /* Pods_MiniCookpad.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MiniCookpad.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		ABC4AA5B581FAD60590BC0C1 /* Pods-MiniCookpadTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MiniCookpadTests.debug.xcconfig"; path = "Target Support Files/Pods-MiniCookpadTests/Pods-MiniCookpadTests.debug.xcconfig"; sourceTree = "<group>"; };
 		B8D6198D26C4CA301B60B869 /* Pods_MiniCookpadTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MiniCookpadTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -198,6 +212,11 @@
 			isa = PBXGroup;
 			children = (
 				322BED4824CFFAC700F6A201 /* RecipeEditorViewController.swift */,
+				4553F48224F3A1540035EF63 /* RecipeEditorContract.swift */,
+				4553F48424F3A2340035EF63 /* RecipeEditorPresenter.swift */,
+				4553F48624F3A2610035EF63 /* RecipeEditorInteractor.swift */,
+				4553F48824F3A2720035EF63 /* RecipeEditorWireframe.swift */,
+				4553F48A24F3A2FD0035EF63 /* RecipeEditorViewBuilder.swift */,
 			);
 			path = RecipeEditor;
 			sourceTree = "<group>";
@@ -215,6 +234,8 @@
 			children = (
 				324435AB24E23DDD00BD68BC /* RecipeDataStore.swift */,
 				324435F824EE502E00BD68BC /* FirestoreRecipe.swift */,
+				4553F47E24F39C690035EF63 /* ImageDataStore.swift */,
+				4553F48024F39CC80035EF63 /* ImagePath.swift */,
 			);
 			path = RecipeDataStore;
 			sourceTree = "<group>";
@@ -426,6 +447,7 @@
 				324435F024E4D52600BD68BC /* SignUpViewController.swift in Sources */,
 				322BECFC24CE712100F6A201 /* RecipeListViewController.swift in Sources */,
 				322BED3B24CFC3B700F6A201 /* RecipeDetailsViewController.swift in Sources */,
+				4553F48724F3A2610035EF63 /* RecipeEditorInteractor.swift in Sources */,
 				324435B424E23E1700BD68BC /* RecipeListInteractor.swift in Sources */,
 				322BED1F24CE788400F6A201 /* RecipeTableViewCell.swift in Sources */,
 				324435B624E23E2300BD68BC /* RecipeListWireframe.swift in Sources */,
@@ -437,14 +459,20 @@
 				324435AE24E23DF200BD68BC /* RecipeListPresenter.swift in Sources */,
 				322BECFA24CE712100F6A201 /* SceneDelegate.swift in Sources */,
 				324435BC24E2410500BD68BC /* RecipeDetailsContract.swift in Sources */,
+				4553F48B24F3A2FD0035EF63 /* RecipeEditorViewBuilder.swift in Sources */,
 				324435BA24E240F400BD68BC /* RecipeDetailsPresenter.swift in Sources */,
+				4553F47F24F39C690035EF63 /* ImageDataStore.swift in Sources */,
+				4553F48324F3A1540035EF63 /* RecipeEditorContract.swift in Sources */,
 				324435C024E2412300BD68BC /* RecipeDetailsInteractor.swift in Sources */,
 				324435BE24E2410F00BD68BC /* RecipeDetailsViewBuilder.swift in Sources */,
+				4553F48124F39CC80035EF63 /* ImagePath.swift in Sources */,
 				322BED2424CE7ED700F6A201 /* DummyData.swift in Sources */,
 				322BED4924CFFAC700F6A201 /* RecipeEditorViewController.swift in Sources */,
 				324435C224E2412C00BD68BC /* RecipeDetailsWireframe.swift in Sources */,
 				324435C424E2413900BD68BC /* RecipeDetailsRecipe.swift in Sources */,
 				324435F924EE502E00BD68BC /* FirestoreRecipe.swift in Sources */,
+				4553F48524F3A2340035EF63 /* RecipeEditorPresenter.swift in Sources */,
+				4553F48924F3A2720035EF63 /* RecipeEditorWireframe.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -599,7 +627,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 5NG7BR536A;
+				DEVELOPMENT_TEAM = RE9CB3Z8A9;
 				INFOPLIST_FILE = MiniCookpad/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -618,7 +646,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 5NG7BR536A;
+				DEVELOPMENT_TEAM = RE9CB3Z8A9;
 				INFOPLIST_FILE = MiniCookpad/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
