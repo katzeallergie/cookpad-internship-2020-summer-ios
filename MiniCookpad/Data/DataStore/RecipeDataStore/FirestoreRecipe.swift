@@ -1,9 +1,24 @@
-//
-//  FirestoreRecipe.swift
-//  MiniCookpad
-//
-//  Created by kensuke-hoshikawa on 2020/08/20.
-//  Copyright © 2020 kensuke-hoshikawa. All rights reserved.
-//
+import Firebase
 
-import Foundation
+protocol RecipeDataStoreProtocol {
+    func fetchAllRecipes(completion: @escaping ((Result<[FirestoreRecipe], Error>) -> Void))
+}
+
+struct RecipeDataStore: RecipeDataStoreProtocol {
+    private let collection: CollectionReference
+    
+    init(db: Firestore = Firestore.firestore()) {
+        self.collection = db.collection("recipes")
+    }
+    
+    func fetchAllRecipes(completion: @escaping ((Result<[FirestoreRecipe], Error>) -> Void)) {
+        collection.order(by: "createdAt", descending: true).getDocuments() { querySnapshot, error in
+            if let error = error {
+                completion(.failure(error))
+            } else {
+                let recipe = querySnapshot!.documents.compactMap { try? $0.data(as: FirestoreRecipe.self) }
+                completion(.success(recipe))
+            }
+        }
+    }
+}
