@@ -1,10 +1,36 @@
-import Foundation
-import FirebaseFirestoreSwift
+import Firebase
 
-struct FirestoreRecipe: Codable, Equatable {
-    @DocumentID var id: String?
-    var title: String
-    var imagePath: String
-    var steps: [String]
-    var createdAt = Date()
+protocol RecipeDataStoreProtocol {
+    func fetchAllRecipes(completion: @escaping ((Result<[FirestoreRecipe], Error>) -> Void))
+    func fetchRecipe(recipeID: String, completion: @escaping ((Result<FirestoreRecipe, Error>) -> Void))
+}
+
+struct RecipeDataStore: RecipeDataStoreProtocol {
+    private let collection: CollectionReference
+    
+    init(db: Firestore = Firestore.firestore()) {
+        self.collection = db.collection("recipes")
+    }
+    
+    func fetchAllRecipes(completion: @escaping ((Result<[FirestoreRecipe], Error>) -> Void)) {
+        collection.order(by: "createdAt", descending: true).getDocuments() { querySnapshot, error in
+            if let error = error {
+                completion(.failure(error))
+            } else {
+                let recipe = querySnapshot!.documents.compactMap { try? $0.data(as: FirestoreRecipe.self) }
+                completion(.success(recipe))
+            }
+        }
+    }
+    
+    func fetchRecipe(recipeID: String, completion: @escaping ((Result<FirestoreRecipe, Error>) -> Void)) {
+        collection.document(recipeID).getDocument { snapshot, error in
+            if let error = error {
+                completion(.failure(error))
+            } else {
+                let recipe = try! snapshot!.data(as: FirestoreRecipe.self)!
+                completion(.success(recipe))
+            }
+        }
+    }
 }

@@ -4,12 +4,17 @@ import FirebaseStorage
 import FirebaseUI
 import Firebase
 
-final class RecipeDetailsViewController: UIViewController {
+final class RecipeDetailsViewController: UIViewController, RecipeDetailsViewProtocol {
     private let storage = Storage.storage()
     private let recipeImageView = UIImageView()
     private let titleLabel = UILabel()
     private let stepsStackView = UIStackView()
     private let recipeReference: DocumentReference
+    private var presenter: RecipeDetailsPresenterProtocol!
+    
+    func inject(presenter: RecipeDetailsPresenterProtocol) {
+        self.presenter = presenter
+    }
 
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
@@ -78,20 +83,9 @@ final class RecipeDetailsViewController: UIViewController {
         stepsTitleLabel.adjustsFontForContentSizeCategory = true
         stepsStackView.addArrangedSubview(stepsTitleLabel)
 
-        fetchRecipe()
+        presenter.refresh()
     }
 
-    func fetchRecipe() {
-        recipeReference.getDocument { [weak self] snapshot, error in
-            if let error = error {
-                self?.showError(error)
-            } else if let snapshot = snapshot {
-                self?.showRecipe(snapshot: snapshot)
-            } else {
-                fatalError()
-            }
-        }
-    }
 
     func showError(_ error: Error) {
         let alertController = UIAlertController(title: "エラー", message: "レシピの取得に失敗しました。もう一度お試しください。\n\(error.localizedDescription)", preferredStyle: .alert)
@@ -102,30 +96,23 @@ final class RecipeDetailsViewController: UIViewController {
         present(alertController, animated: true, completion: nil)
     }
 
-    func showRecipe(snapshot: DocumentSnapshot) {
-        guard let recipe = snapshot.data() else { return }
-        title = recipe["title"] as? String
-        titleLabel.text = recipe["title"] as? String
+    func showRecipe(_ recipe: RecipeDetailsRecipe) {
+        title = recipe.title
+        titleLabel.text = recipe.title
 
         let placeholderImage = UIImage(systemName: "photo")
         // レシピ写真を Cloud Storage から取得して表示する
-        if let path = recipe["imagePath"] as? String {
-            let ref = Storage.storage().reference(withPath: path)
-            recipeImageView.sd_setImage(with: ref, placeholderImage: placeholderImage)
-        } else {
-            recipeImageView.image = placeholderImage
-        }
-
-        if let steps = recipe["steps"] as? [String] {
-            steps.enumerated().forEach { index, step in
-                let label = UILabel()
-                label.text = "\(index + 1): \(step)"
-                label.font = UIFont.preferredFont(forTextStyle: .body)
-                label.textColor = .secondaryLabel
-                label.adjustsFontForContentSizeCategory = true
-                label.numberOfLines = 0
-                stepsStackView.addArrangedSubview(label)
-            }
+        let ref = Storage.storage().reference(withPath: recipe.imagePath)
+        recipeImageView.sd_setImage(with: ref, placeholderImage: placeholderImage)
+        
+        recipe.steps.enumerated().forEach { index, step in
+            let label = UILabel()
+            label.text = "\(index + 1): \(step)"
+            label.font = UIFont.preferredFont(forTextStyle: .body)
+            label.textColor = .secondaryLabel
+            label.adjustsFontForContentSizeCategory = true
+            label.numberOfLines = 0
+            stepsStackView.addArrangedSubview(label)
         }
     }
 }
