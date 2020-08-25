@@ -6,7 +6,6 @@ protocol ImageDataStoreProtocol {
     func createImage(imageData: Data, completion: @escaping ((Result<ImagePath, Error>) -> Void))
 }
 
-
 struct ImageDataStore: ImageDataStoreProtocol {
     private let storageReference: StorageReference
     

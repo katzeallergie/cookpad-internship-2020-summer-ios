@@ -90,7 +90,6 @@ class RecipeEditorViewController: UIViewController, RecipeEditorViewProtocol {
         let title = titleFieldView.text
         let steps = stepsView.getSteps()
         let image = postImage
-        // TODO: レシピ作成
         presenter.createRecipe(title: title, steps: steps, image: image)
     }
 
@@ -175,7 +174,6 @@ extension RecipeEditorViewController: UIImagePickerControllerDelegate, UINavigat
         recipeImageView.contentMode = .scaleAspectFill
         recipeImageView.image = image
         postImage = image
-        print("postImage")
     }
 }
 
