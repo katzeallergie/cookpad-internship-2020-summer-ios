@@ -12,7 +12,7 @@ class RecipeListWireframe: RecipeListWireframeProtocol {
     }
     
     func openRecipeEditor() {
-        let vc = RecipeEditorViewController()
+        let vc = RecipeEditorViewBuilder.build()
         let nav = UINavigationController(rootViewController: vc)
         nav.modalPresentationStyle = .fullScreen
         viewController.present(nav, animated: true, completion: nil)
