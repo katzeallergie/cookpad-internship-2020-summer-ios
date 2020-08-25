@@ -68,8 +68,8 @@ class RecipeEditorInteractor: RecipeEditorInteractorProtocol {
     
         private static func containsEmoji(text: String) -> Bool {
             var surrogatePairCharacters: [Character] {
-            // 順序を保持しつつ、重複要素を取り除くためreduceを使用
-            return text.filter { String($0).utf16.count > 1 }.reduce([]) { $0.contains($1) ? $0 : $0 + [$1] }
+                // 順序を保持しつつ、重複要素を取り除くためreduceを使用
+                return text.filter { String($0).utf16.count > 1 }.reduce([]) { $0.contains($1) ? $0 : $0 + [$1] }
             }
             return !surrogatePairCharacters.isEmpty
         }
