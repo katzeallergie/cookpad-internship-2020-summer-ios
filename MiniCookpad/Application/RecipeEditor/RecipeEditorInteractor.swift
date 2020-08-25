@@ -10,39 +10,59 @@ class RecipeEditorInteractor: RecipeEditorInteractorProtocol {
         self.imageDataStore = imageDataStore
     }
     
-    func createRecipe(title: String?, steps: [String?], image: UIImage?, completion: @escaping ((Result<Void, Error>) -> Void)) {
+    func createRecipe(title: String?, steps: [String?], image: UIImage?, completion: @escaping ((Result<Void, RecipeEditorError>) -> Void)) {
         
-        guard let title = title else {
+        let result = Self.validate(title: title, steps: steps, imageData: image?.jpegData(compressionQuality: 0.1))
+        
+        let title: String
+        let steps: [String]
+        let imageData: Data
+        switch result {
+        case let .success((validatedTitle, validatedSteps, validatedImagedata)):
+            title = validatedTitle
+            steps = validatedSteps
+            imageData = validatedImagedata
+        case let .failure(error):
+            completion(.failure(error))
             return
         }
-        if RecipeEditorInteractor.containsEmoji(text: title) {
-            return
-        }
         
-        let steps: [String] = steps.compactMap { $0 }
-        if steps.isEmpty {
-            return
-        }
-        
-        guard let imageData: Data = image?.jpegData(compressionQuality: 0.1) else {
-            return
-        }
-        
-        imageDataStore.createImage(imageData: imageData, completion: { [weak self] result in
-            switch result {
+        imageDataStore.createImage(imageData: imageData, completion: { [weak self] imageResult in
+            switch imageResult {
             case let .success(imagePath):
-                self?.recipeDataStore.createRecipe(title: title, steps: steps, imagePath: imagePath.path) { result in
-                    switch result {
+                self?.recipeDataStore.createRecipe(title: title, steps: steps, imagePath: imagePath.path) { recipeResult in
+                    switch recipeResult {
                     case .success:
                         completion(.success(()))
                     case let .failure(error):
-                        completion(.failure(error))
+                        completion(.failure(.creationError(error)))
                     }
                 }
             case let .failure(error):
-                completion(.failure(error))
+                completion(.failure(.creationError(error)))
             }
         })
+    }
+    
+    private static func validate(title: String?, steps: [String?], imageData: Data?) -> Result<(title: String, steps:[String], imageData: Data), RecipeEditorError> {
+        guard let title = title else {
+            return .failure(.validationError)
+        }
+        
+        let steps = steps.compactMap { $0 }
+        if steps.isEmpty, title.isEmpty {
+            return .failure(.validationError)
+        }
+        
+        if containsEmoji(text: title) || (steps.map { Self.containsEmoji(text: $0) }).contains(true) {
+            return .failure(.validationError)
+        }
+        
+        guard let imageData = imageData else {
+            return .failure(.validationError)
+        }
+        
+        return .success((title: title, steps: steps, imageData: imageData))
     }
     
     private static func containsEmoji(text: String) -> Bool {

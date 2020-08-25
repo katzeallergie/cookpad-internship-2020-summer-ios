@@ -18,9 +18,13 @@ class RecipeEditorPresenter: RecipeEditorPresenterProtocol {
             case .success:
                 self?.view.showComplete()
             case let .failure(error):
-                self?.view.showError(error)
+                switch error {
+                case .validationError:
+                    self?.view.showValidationError()
+                case let .creationError(error):
+                    self?.view.showError(error)
+                }  
             }
-            
         }
     }
     

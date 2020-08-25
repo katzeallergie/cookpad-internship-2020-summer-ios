@@ -13,7 +13,7 @@ protocol RecipeEditorPresenterProtocol: AnyObject {
 }
 
 protocol RecipeEditorInteractorProtocol: AnyObject {
-    func createRecipe(title: String?, steps: [String?], image: UIImage?, completion: @escaping ((Result<Void, Error>) -> Void))
+    func createRecipe(title: String?, steps: [String?], image: UIImage?, completion: @escaping ((Result<Void, RecipeEditorError>) -> Void))
 }
 
 protocol RecipeEditorWireframeProtocol: AnyObject {
